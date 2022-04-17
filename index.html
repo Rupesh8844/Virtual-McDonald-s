@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Mcdonald's</title>
+    <style>
+ 
+    #logo{
+
+        display: block;
+             position: relative;
+            margin-top:14px;
+            /* margin-left: 86.5%; */
+            height: 50px;
+            cursor: pointer;
+            z-index: 2;
+     }
+        #banner{
+        
+            display: block;
+             position: relative;
+             width: 100%;
+             margin-top: -61px;
+             height: 400px;
+             /* margin-left: -8px; */
+             cursor: pointer;
+             z-index: 1;
+        }
+
+        h1{
+            font-weight: bolder;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        #input{
+            margin-top: 30px;
+            /* text-size: 25px; */
+            font-size: xx-large;
+           
+        }
+
+        #input > input{
+            margin-left: 150px;
+            cursor: pointer;
+        }
+      
+        button{
+            margin-top: 30px;
+            margin-left: 45.5%;
+            font-size: 25px;
+            border-radius: 10px;
+            align-items: center;
+            background-color: red;
+            border: red;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        button:hover{
+            border: rgb(192, 48, 48);
+            background-color: rgb(248, 135, 6);
+            color: black;
+        }
+
+        #orderid{
+            text-align: right;
+            font-size: 30px;
+            font-weight: bolder;
+            margin-right: 150px;
+            margin-top: 30px;
+        }
+
+        #pics{
+            display: flex;
+             justify-content: space-evenly;
+             height: 200px;
+        }
+
+        #loader{
+            /* margin: auto; */
+            margin-left: 35%;
+        }
+
+
+    </style>
+</head>
+<body>
+  
+   <div id="header">
+    <img src="https://retailerreportcard.com/wp-content/uploads/2018/09/logo-large-mcdonalds.png" alt="" id="logo">
+    <img src="https://mcdonalds.com.pk/wp-content/uploads/950x400.png" alt="" id="banner">
+   </div>
+
+   <h1>Food Items</h1>
+
+<div id="input">
+<input type="checkbox" id="check1" value="Burger">Burger
+<input type="checkbox" id="check2" value="Pizza">Pizza
+<input type="checkbox" id="check3" value="Biryani">Biryani
+<input type="checkbox" id="check4" value="French_Fries">French Fries
+<input type="checkbox" id="check5" value="Cold_Drink">Cold Drink
+</div>
+
+<button onclick="order()">Order Food</button>
+
+<!-- <p id="sec"></p> -->
+<div id="box">
+<div id="orderid"></div>
+
+<img id="loader">
+
+<div id="container">
+
+   </div>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- ==============================Script js ===================================== -->
+
+<script>
+
+
+function order(){
+
+    document.getElementById("container").textContent="";
+
+   let loader = document.getElementById("loader");
+
+
+let items = document.getElementsByTagName("input");
+
+let item_Arr = [];
+for (var i = 0; i < items.length; i++) {
+  if (items[i].checked) {
+    item_Arr.push(items[i].value);
+  }
+}
+   
+if(item_Arr.length!==0){
+
+    setTimeout(function(){
+
+let orderid = document.getElementById("orderid");
+orderid.innerText = `Order id :-  ${+ (Math.random() *8 * 1000).toFixed(0)}`;
+loader.src= "https://c.tenor.com/ss89yX_vJ1QAAAAd/pizza-cook.gif";
+
+},0);
+
+
+alert("Your Order has been Confirm");
+
+
+// console.log(item_Arr);
+let status = "open";
+
+let mypromise = new Promise(function (resolve, reject) {
+  let time = Math.random() * 10 * 1000;
+
+//   let p = document.getElementById("sec");
+//   sec = `You will receive food in ${time}`;
+//   p.append(sec);
+
+
+    setTimeout(function () {
+        if (status === "open") {
+          resolve(item_Arr);
+         
+        } else {
+          reject();
+        }
+      }, time);
+    });
+
+   
+     mypromise.then(function (res) {
+    
+        // let loader2 = document.getElementById("loader");
+loader.src="";
+
+
+
+    let pics = document.createElement("div");
+    pics.setAttribute("id","pics");
+
+
+    let img1 = document.createElement("img");
+    img1.src =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3kvogYs_mClWRA5S8bUkjUWwEDi4mViLgQ&usqp=CAU";
+    
+    let img2 = document.createElement("img");
+    img2.src = "https://static.onecms.io/wp-content/uploads/sites/9/2021/06/15/mozzarella-pizza-margherita-FT-RECIPE0621.jpg";
+
+    let img3 = document.createElement("img");
+    img3.src =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9MKtDYpZnnNZ_QGw0D8c1sBZlNS-xw7U4Lw&usqp=CAU";
+
+    let img4 = document.createElement("img");
+    img4.src =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52JIIsTw9X92DTDhWQzXeBq22Ns5_QNE03A&usqp=CAU";
+
+    let img5 = document.createElement("img");
+    img5.src = "https://prod-dairyqueen.dotcmscloud.com/dA/21d4de4bf0/fileAsset/coca_cola.png";
+
+
+    for(let j=0;j<res.length;j++){
+        if(res[j]==="Burger"){
+            pics.append(img1);
+        }
+        else if(res[j]==="Pizza"){
+            pics.append(img2);
+        }
+        else if(res[j]==="Biryani"){
+            pics.append(img3);
+        }
+        else if(res[j]==="French_Fries"){
+            pics.append(img4);
+        }
+        else if(res[j]==="Cold_Drink"){
+            pics.append(img5);
+        }
+    }
+
+   let food = document.createElement("h1");
+   food.innerText = `Your Food is Ready`;
+
+    let container = document.getElementById("container");
+    let last = document.createElement("h3");
+    last.innerText =  "***Stay Hungry***";
+    last.style.textAlign="center";
+    last.style.margin = "3vw";
+    last.style.fontSize="30px";
+
+ 
+    container.append(food,pics,last);
+  });
+
+}
+
+
+else{
+    alert("Please Select Food Item !!!");
+}
+
+
+
+}
+
+
+
+   
+
+</script>
